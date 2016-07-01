@@ -3,9 +3,14 @@ package com.energysistem.webview;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +37,10 @@ public class Main extends Activity {
         // Zoom Controls
         WebView.getSettings().setBuiltInZoomControls(true);
         WebView.getSettings().setDisplayZoomControls(false);
+
+        // Default Zoom Out
+        WebView.getSettings().setLoadWithOverviewMode(true);
+        WebView.getSettings().setUseWideViewPort(true);
 
         // Provide a WebViewClient for your WebView
         WebView.setWebViewClient(new MyWebViewClient());
@@ -66,8 +75,20 @@ public class Main extends Activity {
 
             this.loadTime = currentTimeMillis();
 
-            Toast.makeText(getApplicationContext(),
-                    "Cargando web...", Toast.LENGTH_SHORT).show();
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom_toast,
+                    (ViewGroup) findViewById(R.id.toast_layout));
+
+            TextView toast_text = (TextView) layout.findViewById(R.id.toast_text);
+            toast_text.setText(R.string.toast);
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM,0, 50);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
+
+            /*Toast.makeText(getApplicationContext(),
+                    "Cargando web...", Toast.LENGTH_SHORT).show();*/
         }
 
         @Override

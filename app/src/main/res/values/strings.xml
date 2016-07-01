@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Contratar Seguro</string>
+    <string name="toast">Cargando web...</string>
 </resources>
